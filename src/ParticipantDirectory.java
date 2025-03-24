@@ -10,6 +10,7 @@ import java.util.TreeMap;
 public class ParticipantDirectory {
     // TreeMap storing participants with username as key.
     private final Map<String, Participant> usernameToParticipant;
+    private final Map<Integer, Participant> idToParticipant;
 
     // TODO 1a: Declare a TreeMap to store participants with ID as key.
 
@@ -21,6 +22,7 @@ public class ParticipantDirectory {
     public ParticipantDirectory() {
         // Create the TreeMap to store participants with username as key.
         this.usernameToParticipant = new TreeMap<>();
+        this.idToParticipant = new TreeMap<>();
 
         // TODO 1b: Create the TreeMap to store participants with ID as key.
 
@@ -38,6 +40,8 @@ public class ParticipantDirectory {
         // using the username of the Participant, p, as key.
         Participant p = new Participant(idNumber, username, fullname);
         this.usernameToParticipant.put(p.username, p);
+
+        this.idToParticipant.put(p.idNumber, p);
 
         // TODO 2: Store the Participant, p, in the second TreeMap
         // TODO 2: using the idNumber attribute of p as key.
@@ -66,7 +70,7 @@ public class ParticipantDirectory {
     public Participant getParticipantByID(Integer idNumber) {
         // TODO 3: Return the Participant associated with the given idNumber
         // TODO 3: using the second TreeMap created in step 1.
-        return null;
+        return this.idToParticipant.get(idNumber);
     }
 
     /**
@@ -94,7 +98,12 @@ public class ParticipantDirectory {
     public String getRosterByID() {
         // TODO 4: Use the second TreeMap created in step 1 to build and return
         // TODO 4: return a String containing a participant roster sorted by ID.
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Participant p : this.idToParticipant.values()) {
+            stringBuilder.append(p);
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 
     /**
@@ -118,6 +127,10 @@ public class ParticipantDirectory {
         System.out.println(dir.getRosterByUsername());
 
         // TODO 5 (optional): Add a bit of test code for the new TreeMap.
+        System.out.println("Participant with ID 1: " + dir.getParticipantByID(1));
+        System.out.println("Participant Roster By ID:");
+        System.out.println(dir.getRosterByID());
+
 
     }
 }
